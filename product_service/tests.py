@@ -20,7 +20,32 @@ class ProductAPITest(TestCase):
         )
 
     def test_get_product_list(self):
-        url = reverse('api/v1/products-services/products')
+        url = reverse('productsss')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 2)
+
+    # future development
+    # def test_get_product_list_detail(self):
+    #     url = reverse('api/v1/products-services/products')
+
+
+class ServiceAPITest(TestCase):
+    def setUp(self) -> None:
+        self.client = APIClient()
+        self.service1 = SERVICE.objects.create(
+            NAME='SERVICE 1',
+            SLUG='SERVICE-1-IT-IS',
+            SHORT_DESCRIPTION='SHORT DESCRIPTION IT IS'
+        )
+        self.service2 = SERVICE.objects.create(
+            NAME='Service 2',
+            SLUG='service-2',
+            SHORT_DESCRIPTION='Short description for service 2'
+        )
+
+    def test_get_service_list(self):
+        url = reverse('servicess')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data[0]['NAME'], 'SERVICE 1')
